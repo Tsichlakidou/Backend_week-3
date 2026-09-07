@@ -2,7 +2,10 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
 from datetime import datetime
-import json
+import json,os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+POSTS_FILE = os.path.join(BASE_DIR, "posts.json")
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
 SWAGGER_URL = "/api/docs"
@@ -23,7 +26,7 @@ app.register_blueprint(
 
 def load_posts()-> list[dict]:
     try:
-        with open("posts.json", "r") as file:
+        with open(POSTS_FILE, "r") as file:
             posts = json.load(file)
         return posts
     except (FileNotFoundError, json.JSONDecodeError):
@@ -32,7 +35,7 @@ def load_posts()-> list[dict]:
 
 def save_posts(posts):
     try:
-        with open("posts.json", "w") as file:
+        with open(POSTS_FILE, "w") as file:
             json.dump(posts, file)
     except OSError:
         print("Error saving posts to file.")
