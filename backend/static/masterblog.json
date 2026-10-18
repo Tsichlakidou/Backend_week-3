@@ -114,7 +114,7 @@
     },
     "/api/posts/search": {
       "get": {
-        "summary": "Searches posts by title, content, author or date",
+        "summary": "Search posts by title, content, or a general search term",
         "produces": [
           "application/json"
         ],
@@ -128,6 +128,20 @@
             "required": false,
             "type": "string",
             "description": "Search term used across title, content, author and date"
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Search posts by title"
+          },
+          {
+            "name": "content",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Search posts by content"
           }
         ],
         "responses": {
